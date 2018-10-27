@@ -125,6 +125,7 @@ class MetadataVisitor : public llvm::InstVisitor<MetadataVisitor>
             md->print(stream, &this->module_);
             auto line = stream.str();
             auto delim = line.find(" = ");
+            if(delim == std::string::npos) { continue; }
             auto identifier = std::stoi(line.substr(1, delim));
             output.push_back(std::make_pair(identifier, line.substr(delim + 3)));
         }
