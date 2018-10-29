@@ -17,9 +17,8 @@
 import subprocess
 import os
 
-import util
 import z3
-import solver_utils as sutils
+from . import solver_utils as sutils
 
 
 CURRENT = os.path.dirname(os.path.realpath(__file__))

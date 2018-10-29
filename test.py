@@ -1,3 +1,6 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+
 #
 # Copyright 2017 Hyperkernel Authors
 #
@@ -153,6 +156,6 @@ class IRPyTest(unittest.TestCase):
 
 if __name__ == '__main__':
     seed = random.randint(0, 2 ** 64 - 1)
-    print "Random seed: " + str(seed)
+    print("Random seed: " + str(seed))
     random.seed(seed)
     unittest.main()

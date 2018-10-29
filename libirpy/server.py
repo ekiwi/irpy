@@ -15,10 +15,9 @@
 #
 
 import sys
-import util
 import z3
 
-from solver_utils import write_cmd, read_cmd
+from .solver_utils import write_cmd, read_cmd
 
 
 class Server(object):
@@ -41,7 +40,7 @@ class Server(object):
             sys.exit(0)
         try:
             res = {'return': getattr(self, cmd['name'])(*cmd['args'], **cmd['kwargs'])}
-        except Exception, e:
+        except Exception as e:
             res = {'exc': repr(e)}
         self._write(res)
 

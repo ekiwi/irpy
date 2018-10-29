@@ -41,6 +41,6 @@ def read_cmd(stream):
     data = read(stream, int(cmdlen))
     try:
         return json.loads(data)
-    except Exception, e:
-        print "Found exception", e, data
+    except Exception as e:
+        print("Found exception", e, data)
         raise e

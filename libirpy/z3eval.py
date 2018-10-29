@@ -16,11 +16,11 @@
 
 import z3
 
-import itypes
-import datatypes as dt
-import util
-from eval import BaseIRPyEvaluator
-import ex
+from . import itypes
+from . import datatypes as dt
+from . import util
+from .eval import BaseIRPyEvaluator
+from . import ex
 
 
 class BaseZ3IRPyEval(BaseIRPyEvaluator):
@@ -32,7 +32,7 @@ class BaseZ3IRPyEval(BaseIRPyEvaluator):
         if not cond:
             util.print_stacktrace(ctx, stacktrace=stacktrace)
             if hasattr(cond, '_dbg'):
-                print cond._dbg
+                print(cond._dbg)
         assert cond, msg
 
     def get_poison(self, type):
@@ -378,12 +378,12 @@ class Z3IRPyEval(BaseZ3IRPyEval):
             try:
                 ctx.push(path_condition=scond)
                 trueval = iftrue()
-            except ex.UnreachableException, e:
+            except ex.UnreachableException as e:
                 stacktrace = getattr(e, 'stacktrace', None)
                 self.assertion(ctx, util.path_condition_implies(ctx, z3.BoolVal(
                     False), print_model=True), "Panic " + repr(e), stacktrace=stacktrace)
                 can_be_true = False
-            except BaseException, e:
+            except BaseException as e:
                 true_branch_exc = e
             finally:
                 true_ctx = ctx.pop()
@@ -392,12 +392,12 @@ class Z3IRPyEval(BaseZ3IRPyEval):
             try:
                 ctx.push(path_condition=z3.Not(scond))
                 falseval = iffalse()
-            except ex.UnreachableException, e:
+            except ex.UnreachableException as e:
                 stacktrace = getattr(e, 'stacktrace', None)
                 self.assertion(ctx, util.path_condition_implies(ctx, z3.BoolVal(
                     False), print_model=True), "Panic " + repr(e), stacktrace=stacktrace)
                 can_be_false = False
-            except BaseException, e:
+            except BaseException as e:
                 false_branch_exc = e
             finally:
                 false_ctx = ctx.pop()

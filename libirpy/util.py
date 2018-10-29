@@ -19,7 +19,7 @@ import sys
 import os
 import z3
 
-import itypes
+from . import itypes
 
 
 if False:
@@ -138,7 +138,7 @@ def path_condition_implies(ctx, cond, print_model=False):
         return True
     else:
         if print_model:
-            print solver.model()
+            print(solver.model())
             print_stacktrace(ctx)
         return False
 
@@ -528,8 +528,8 @@ def print_stacktrace(ctx,  stacktrace=None):
     for frame in stacktrace:
         inlined = map(lambda ns: ':'.join(ns), get('inlined'))
         inlined = ' @[ '.join(inlined) + ' ] ' * len(inlined)
-        print "  In function {}:{}:{}:{} {}{}".format(get('file'),
-                                                      get('function'), get('line'), get('column'), '@[ ' if inlined else "", inlined)
+        print("  In function {}:{}:{}:{} {}{}".format(get('file'),
+                                                      get('function'), get('line'), get('column'), '@[ ' if inlined else "", inlined))
 
 
 def as_bool(v):

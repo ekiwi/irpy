@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-import util
+from . import util
 import z3
 import copy
 

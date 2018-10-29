@@ -346,7 +346,7 @@ def construct_type(ctx, value):
 def has_type(ctx, value, typ):
     v = construct_type(ctx, value) == typ
     if not v:
-        print construct_type(ctx, value), typ
+        print(construct_type(ctx, value), typ)
     return v
 
 

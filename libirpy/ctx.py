@@ -15,11 +15,11 @@
 #
 
 import copy
-import util
-import z3eval
+from . import util
+from . import z3eval
 import z3
 #from z3 import Solver
-from solver import Solver
+from .solver import Solver
 
 
 _solver = Solver()
