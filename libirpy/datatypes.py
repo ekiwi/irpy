@@ -36,8 +36,7 @@ class Reference(object):
                 assert False, "Can't have base type if there is more left in path"
             elif typ.is_array() or typ.is_pointer():
                 if typ.is_array():
-                    if not util.path_condition_implies(ctx, z3.ULT(path[0],
-                        typ.length()), print_model=True):
+                    if not util.path_condition_implies(ctx, z3.ULT(path[0], typ.length()), print_model=True):
                         util.print_stacktrace(ctx)
                         raise IndexError(
                             "Can not prove index %s is within array bounds %s"
@@ -175,7 +174,7 @@ class Pointer(object):
             else:
                 path[-1] = path[-1] + gep[0]
             path += gep[1:]
-        return map(util.simplify, path)
+        return list(map(util.simplify, path))
 
     def read(self, ctx):
         return self._ref.read(ctx, self.canonical_path())

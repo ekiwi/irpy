@@ -16,8 +16,35 @@
 
 import sys
 import z3
+import json
+import math
 
-from .solver_utils import write_cmd, read_cmd
+LEN_LEN = 8
+
+
+def write_cmd(stream, command):
+    payload = json.dumps(command)
+    assert math.log(
+        len(payload), 10) < LEN_LEN, "payload length = {} too large".format(len(payload))
+    payload = str(len(payload)).rjust(LEN_LEN, '0') + payload
+    stream.write(payload)
+    stream.flush()
+
+
+def read(stream, count):
+    return stream.read(count)
+
+
+def read_cmd(stream):
+    cmdlen = read(stream, LEN_LEN)
+    if not cmdlen:
+        return None
+    data = read(stream, int(cmdlen))
+    try:
+        return json.loads(data)
+    except Exception as e:
+        print("Found exception", e, data)
+        raise e
 
 
 class Server(object):

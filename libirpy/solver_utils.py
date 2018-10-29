@@ -25,13 +25,12 @@ def write_cmd(stream, command):
     assert math.log(
         len(payload), 10) < LEN_LEN, "payload length = {} too large".format(len(payload))
     payload = str(len(payload)).rjust(LEN_LEN, '0') + payload
-    stream.write(payload)
+    stream.write(payload.encode("UTF-8"))
     stream.flush()
 
 
 def read(stream, count):
-    v = stream.read(count)
-    return v
+    return stream.read(count).decode("UTF-8")
 
 
 def read_cmd(stream):

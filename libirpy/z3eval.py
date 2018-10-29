@@ -452,6 +452,7 @@ class Z3IRPyEval(BaseZ3IRPyEval):
         return ctx['globals'][name]
 
     def debug_loc(self, ctx, name, dbg):
+        if name == '<badref>': return
         file, line, column, inlined = util.parse_debug_info(dbg)
         # Shouldn't change within a function, but inlining and stuff maybe
         ctx['stacktrace'][-1]['file'] = file
